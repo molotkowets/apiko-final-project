@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import Home from './pages/home/Home';
+import Layout from './components/Layout';
+import Authorization from './containers/authorization/Authorization';
 
 function App() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+ 
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes location={background || location}>
+        <Route path='/' element={<Layout/>}>
+           <Route index element={<Home/>}/>
+           {/* <Route path=':registration' element={<Authorization auth={"registration"}/>}/> */}
+        </Route>
+      </Routes>
+      {background && (
+        <Routes>
+          <Route path='registration' element={<Authorization />}/>
+        </Routes>
+      )}
+    </>
   );
 }
 

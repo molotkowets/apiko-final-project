@@ -1,0 +1,9 @@
+.authorization-container{
+    height: 100px;
+    width: 100px;
+    display: flex;
+    position: absolute;
+    position: static;
+    background: #000000B2;
+    
+}

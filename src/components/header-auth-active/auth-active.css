@@ -1,0 +1,30 @@
+.auth-active-container{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+.auth-active-container a{
+cursor: pointer;
+
+font-family: 'DM Sans', sans-serif; /* Heebo */
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+text-decoration: none;
+
+letter-spacing: 0.4px;
+text-transform: uppercase;
+
+color: #FFFFFF;
+
+background: none;
+border: none;
+}
+
+.separate-rectangle{
+    width: 2px;
+    height: 13px;
+    background: #FD7114;
+    margin: 0 15px;
+}

@@ -1,0 +1,25 @@
+.active-link-header{
+    
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 76px;
+    background-color: #110F21;
+    padding: 0  160px;
+}
+header a{
+    display: flex;
+}
+.basket-button{
+    margin-left: 25px;
+}
+.header-user-icon{
+    display: flex;
+    margin-right: 42px;
+}
+.header-right-side{
+    display: flex;
+    justify-content: space-between;
+}
