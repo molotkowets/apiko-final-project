@@ -8,19 +8,19 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
 
- 
-  
   return (
     <>
       <Routes location={background || location}>
         <Route path='/' element={<Layout/>}>
            <Route index element={<Home/>}/>
-           {/* <Route path=':registration' element={<Authorization auth={"registration"}/>}/> */}
+           {/* <Route path='registration' element={<Authorization/>}/> */}
         </Route>
       </Routes>
+
       {background && (
         <Routes>
-          <Route path='registration' element={<Authorization />}/>
+          <Route path={'registration'} element={<Authorization/>}/>
+          <Route path={"login"} element={<Authorization/>}/>
         </Routes>
       )}
     </>
