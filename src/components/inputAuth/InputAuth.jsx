@@ -9,14 +9,23 @@ export default function InputAuth({type, id, size, name, placeholder}) {
     
     let Eye = eyeState ?<OpenEye/>:<ClosedEye/>
     let newType = eyeState ?"text": "";
+    const errors = {
+        email: "",
+
+    }
+    const inputClass = type === "password" ? "input-right-padding input-auth": "input-auth"
+   
 
   return (
     <>
     <div className='container-input-auth'>
         <label className={activeLabel + " label-auth"} for={id}>{placeholder+":"}</label>
-        <input className='input-auth' onChange={(event)=> click(event)} id={id} type={newType||type} size={size} name={name} placeholder={placeholder} required />
-        {type === "password" ? <button onClick={()=>setEyeState(!eyeState)} className='eye-button'>{Eye}</button>:""}
-        <span className='auth-input-error'>Mandatory info missing</span>
+        <div>
+            <input className={inputClass} onChange={(event)=> click(event)} id={id} type={newType||type} size={size} name={name} placeholder={placeholder} required />
+            {type === "password" ? <button onClick={()=>setEyeState(!eyeState)} className='eye-button'>{Eye}</button>:""}
+        </div>
+        <span className='auth-input-error'>{errors[type]}</span>
+        
     </div>
     
     </>
