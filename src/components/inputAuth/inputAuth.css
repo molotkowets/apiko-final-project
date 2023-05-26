@@ -65,3 +65,15 @@ select:-webkit-autofill:focus {
 .input-right-padding{
   padding-right: 45px;
 }
+.auth-input-error{
+/* display: none; */
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 20px;
+
+color: #F44336;
+
+
+}

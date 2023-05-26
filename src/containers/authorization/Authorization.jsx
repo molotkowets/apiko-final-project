@@ -1,18 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './authorization.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputAuth from '../../components/inputAuth/InputAuth';
 
 export default function Authorization() {
   
-  const location = useLocation()
-  const navigate = useNavigate();
-  const currentAddress = location.pathname.replace("/","")
-  const title = currentAddress[0].toUpperCase() + currentAddress
-  document.title = title;
-  const patterns ={
-    email: "/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;"
-  }
+
+  const [email, setEmail] = useState(''),
+   [password, setPassword] = useState(''),
+   [username, setUsername] = useState(''),
+   [phone, setPhone] = useState('');
+
+  const [emailDirty, setEmailDirty] = useState(false),
+   [passwordDirty, setPasswordDirty] = useState(false),
+   [usernameDirty, setUsernameDirty] = useState(false),
+   [phoneDirty, setPhoneDirty] = useState(false);
+
+  const [emailError, setEmailError] = useState("The input field must not be empty"),
+  [passwordError, setPasswordError] = useState('The input field must not be empty'),
+  [usernameError, setUsernameError] = useState('The input field must not be empty'),
+  [phoneError, setPhoneError] = useState('The input field must not be empty');
+
+  const [formValid, setFormValid] = useState(false)
+
+  useEffect(()=>{
+    if(emailError || passwordError || usernameError || phoneError){
+      setFormValid(false)
+    }else{
+      setFormValid(true)
+    }
+
+  },[emailError, passwordError, usernameError, phoneError])
+
+  const location = useLocation(),
+   navigate = useNavigate(),
+   currentAddress = location.pathname.replace("/","");
+
+  document.title  = currentAddress[0].toUpperCase() + currentAddress;
+ 
 
   const textSwitchBox = {
     registration: {
@@ -31,6 +56,66 @@ export default function Authorization() {
 
   const electText = textSwitchBox[currentAddress]
 
+  const inputData=[
+    {
+      id:"username",
+      type:"text",
+      name:"username",
+      placeholder:"Full Name",
+      pattern: "^[a-zA-Z\\s]+$",
+      value: {username},
+      setValue: {setUsername},
+      dirty: {usernameDirty},
+      setDirty: {setUsernameDirty},
+      error: {usernameError},
+      setError: {setUsernameError}
+    },
+    {
+      id:"email",
+      type:"email",
+      name:"email",
+      placeholder:"email",
+      pattern: "\\S+@\\S+",
+      value: {email},
+      setValue: {setEmail},
+      dirty: {emailDirty},
+      setDirty: {setEmailDirty},
+      error: {emailError},
+      setError: {setEmailError}
+    },
+    {
+      id:"phone",
+      type:"tel",
+      name:"phone",
+      placeholder:"Phone number",
+      pattern: "^(\\+)?([0-9]){10,14}$",
+      value: {phone},
+      setValue: {setPhone},
+      dirty: {phoneDirty},
+      setDirty: {setPhoneDirty},
+      error: {phoneError},
+      setError: {setPhoneError}
+    },
+    {
+      id:"pass",
+      type:"password",
+      name:"password",
+      minLength: 8,
+      maxLength: 35,
+      placeholder:"Password",
+      pattern: "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]",
+      value: {password},
+      setValue: {setPassword},
+      dirty: {passwordDirty},
+      setDirty: {setPasswordDirty},
+      error: {passwordError},
+      setError: {setPasswordError}
+    },
+  ]
+ const checkLocation = currentAddress === "registration" 
+
+ const booForInputMap = (key)=>Boolean(checkLocation + (key % 2))
+  
   return (
     <div className='authorization-window'> 
     <button className='background-button-close' onClick={() => navigate(-1)}></button>
@@ -40,12 +125,11 @@ export default function Authorization() {
           <h1 className='auth-title'>
             {electText.title}
           </h1>
-          {currentAddress === "registration" && <InputAuth id={"username"} type={"text"}  name={"username"} placeholder={"Full Name"}/>}
-          <InputAuth id={"email"} type={"email"}  name={"email"} placeholder={"Email"} pattern={patterns.email} required={true}/>
-          {currentAddress === "registration" &&  <InputAuth id={"phone"} type={"tel"}  name={"phone"} placeholder={"Phone number"} pattern={"[0-9]{3}-[0-9]{3}-[0-9]{4}"}/>}
-          <InputAuth id={"pass"} type={"password"}  name={"password"} placeholder={"Password"} required={true}/>
-          {currentAddress === "registration" && <p className='password-notification'>The password has to be at least at least 1 letter, 1special symbol, 1 number</p>}
-          <button className='registration-button'>{electText.title}</button>
+          <form>
+            {inputData.map((inp, key)=> booForInputMap(key) && <InputAuth key={key} {...inp} />)}
+            {checkLocation && <p className='password-notification'>The password has to be at least at least 1 letter, 1special symbol, 1 number</p>} 
+            <button disabled={!formValid} onChange={()=>console.log("button")} className='registration-button'>{electText.title}</button>
+          </form>
         </div>
         <div className='auth-switch-box auth-box-general'>
           <p>{electText.p}</p><Link className='auth-switch-link' to={electText.to} state={{background: location.state.background}} replace={true}>{electText.button}</Link>   
