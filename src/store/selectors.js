@@ -1,0 +1,1 @@
+export const cardItemsSelector = state => state.cardItems

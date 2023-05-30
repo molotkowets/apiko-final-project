@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./inputAuth.css"
-import {ReactComponent as OpenEye} from '../../icon/openEye.svg'
-import {ReactComponent as ClosedEye} from "../../icon/closedEye.svg"
+import {ReactComponent as OpenEye} from '../../assets/icons/openEye.svg'
+import {ReactComponent as ClosedEye} from "../../assets/icons/closedEye.svg"
 export default function InputAuth({type, id, pattern, name, placeholder, maxLength, minLength, value, setValue, dirty, setDirty, error, setError}) {
     const [activeLabel, setActiveLabel] = useState("")
     const [eyeState, setEyeState] = useState(false)
