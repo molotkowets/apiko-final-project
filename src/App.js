@@ -4,10 +4,11 @@ import Home from './pages/home/Home';
 import Layout from './components/Layout';
 import Authorization from './containers/authorization/Authorization';
 
+
 function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
-
+ 
   return (
     <>
       <Routes location={background || location}>

@@ -1,0 +1,8 @@
+.parameter-container{
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    background: white;
+    padding: 12px 27px;
+    margin: 20px 0;
+}
