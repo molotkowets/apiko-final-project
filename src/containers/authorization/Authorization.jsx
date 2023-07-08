@@ -2,8 +2,33 @@ import React, { useEffect, useState } from 'react'
 import './authorization.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputAuth from '../../components/inputAuth/InputAuth';
+// import { Register } from '../../apis/postRegister';
 
 export default function Authorization() {
+
+ const [resp, setResp] = useState("")
+console.log(resp)
+  const dataAuth = {
+    login: {
+      url: '/login',
+      data:{
+        "email": "molotkowets@gmail.com",
+        "password": "admin1234!",
+      }
+    },
+    register:{
+      url:'/register',
+      data:{
+        "fullName": "molotkowets",
+        "email": "molotkowets@gmail.com",
+        "password": "admin1234!",
+        "phone": "+380508546242"
+      }
+    }
+  }
+  // useEffect(() =>{
+  //   Register(dataAuth.login, setResp)
+  // },[])
   
 
   const [email, setEmail] = useState(''),
@@ -22,7 +47,10 @@ export default function Authorization() {
   [phoneError, setPhoneError] = useState('The input field must not be empty');
 
   const [formValid, setFormValid] = useState(false)
-
+const tester = (e)=>{
+  // navigate('/')
+  console.log(e)
+}
   useEffect(()=>{
     if(emailError || passwordError || usernameError || phoneError){
       setFormValid(false)
@@ -128,7 +156,7 @@ export default function Authorization() {
           <form>
             {inputData.map((inp, key)=> booForInputMap(key) && <InputAuth key={key} {...inp} />)}
             {checkLocation && <p className='password-notification'>The password has to be at least at least 1 letter, 1special symbol, 1 number</p>} 
-            <button disabled={!formValid} onChange={()=>console.log("button")} className='registration-button'>{electText.title}</button>
+            <button /*disabled={!formValid}*/ onChange={(e)=>tester(e)} className='registration-button'>{electText.title}</button>
           </form>
         </div>
         <div className='auth-switch-box auth-box-general'>
