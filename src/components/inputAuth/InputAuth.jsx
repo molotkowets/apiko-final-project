@@ -43,8 +43,8 @@ export default function InputAuth({type, id, pattern, name, placeholder, maxLeng
     <div className='container-input-auth'>
         <label className={activeLabel + " label-auth"} htmlFor={id}>{placeholder+":"}</label>
         <div>
-            <input onChange={(e)=>valueHandler(e)} value={value[Object.keys(value)]} onBlur={()=> setDirty[Object.keys(setDirty)](true)} className={inputClass}  minLength={minLength} maxLength={maxLength} id={id} type={newType||type}  name={name} placeholder={placeholder} required />
-            {type === "password" ? <button onClick={()=>setEyeState(!eyeState)} className='eye-button'>{Eye}</button>:""}
+            <input autocomplete="on" onChange={(e)=>valueHandler(e)} value={value[Object.keys(value)]} onBlur={()=> setDirty[Object.keys(setDirty)](true)} className={inputClass}  minLength={minLength} maxLength={maxLength} id={id} type={newType||type}  name={name} placeholder={placeholder} required />
+            {type === "password" ? <div onClick={()=>setEyeState(!eyeState)} className='eye-button'>{Eye}</div>:""}
         </div>
         {(dirty[Object.keys(dirty)] && error[Object.keys(error)]) &&  <span className='auth-input-error'>{error[Object.keys(error)]}</span>}
         

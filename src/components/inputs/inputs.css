@@ -1,0 +1,30 @@
+.parameter-input-box{
+    height: 37px;
+    margin: 0 11px;
+    box-sizing: border-box;
+    background: #F9FAFB;
+    border: 1px solid #DEDEE0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+
+}
+.flex-one{
+    flex: 1;
+}
+.flex-two{
+    flex: 2;
+}
+.icon-box{
+    display: flex;
+}
+input[list="countries"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+  } 
+  input[list="sort"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+  } 
+  /* datalist::-webkit-calendar-picker-indicator {
+    display: none;
+  } */
