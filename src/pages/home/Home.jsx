@@ -6,8 +6,9 @@ import { getProducts } from '../../apis/getProducts'
 import ProductParameter from '../../components/product-parameter/ProductParameter'
 import ProductCard from '../../components/product-card/ProductCard'
 import Loading from '../../components/loading/Loading'
+import NoResultsFound from '../../containers/NoResultsFound/NoResultsFound'
 
-export default function Home() {
+export default function Home({setId}) {
   const [product, setProduct] = useState("")
   const [parameterGoods, setParameterGoods] = useState({offset: 0, limit: 20, sortBy: "latest"})
   const [categories, setCategories] = useState('')
@@ -20,20 +21,14 @@ export default function Home() {
       const requestURLCategories = categoriesURL + categories.id + "/products"
       getProducts( requestURLCategories, parameterGoods, setProduct)
     }
-    // else{
-    //   const requestURLProducts = "https://demo-api.apiko.academy/api/products" + (searchVal && "/search")
-    //   console.log(requestURLProducts )
-    //   getProducts( requestURLProducts, {...parameterGoods, keywords: searchVal}, setProduct)
-      
-    //   // console.log(requestURLCategories)
-    // }
-    
+   
   },[categories, parameterGoods])
 
   useEffect(()=>{
     const requestURLProducts = "https://demo-api.apiko.academy/api/products" + (searchVal && "/search")
+    const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth')).token}`}
       console.log(requestURLProducts )
-      getProducts( requestURLProducts, {...parameterGoods, keywords: searchVal}, setProduct)
+      getProducts( requestURLProducts, {...parameterGoods, keywords: searchVal}, token, setProduct)
       setCategories("")
   },[parameterGoods, searchVal])
 
@@ -43,24 +38,16 @@ export default function Home() {
 
   document.title = "Hone";
 
-  // const cardItems = useSelector(cardItemsSelector)
-  
-  // const dispatch = useDispatch()
-  // const handleRemoveFromCard = id => {
-  //   dispatch(removeFromCard(id))
-  // }
+  const btnVisibility = product && product.length>=20 
 
-  // console.log(cardItems, dispatch, handleRemoveFromCard)
-const btnVisibility = product && product.length>=20 
   return (
     <div className='content-container'>
+      
       <ProductParameter categories={categories} searchVal={searchVal} setSearchVal={setSearchVal} parameterGoods={parameterGoods} setParameterGoods={setParameterGoods} setCategories={setCategories} sortList={sortList}/>
-      <div className='goods-container'>
-        { product? product.map((product, index)=><ProductCard key={index} product={product}/>):<Loading/>}
-      </div>
+      {product.length ? <div className='goods-container'>
+        { product? product.map((product, index)=><ProductCard setId={setId} key={index} product={product}/>):<Loading/>}
+      </div> :<NoResultsFound/>} 
       {btnVisibility && <button onClick={()=>setParameterGoods({...parameterGoods, limit:parameterGoods.limit+20})} className='button-load-more'>Load more...</button>}
-
-      {/* <p>{cardItems}</p> */}
     </div>
   )
 }

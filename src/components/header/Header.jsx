@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./header.css"
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Logo from "../../assets/icons/Logofull.svg"
 import Heart from "../../assets/icons/Favorites.svg"
 import Basket from "../../assets/icons/icon_ basket.svg"
@@ -9,7 +9,19 @@ import AuthNotActive from '../header-auth-active/AuthNotActive'
 
 
 export default function Header() {
-  let isAuth = false;
+  const [isAuth, setIsAuth] = useState("")
+  useEffect(()=>{
+    try{
+      setIsAuth(JSON.parse(localStorage.getItem("onAuth"))?.token)
+    }
+    catch{
+      console.log("onAuth")
+    }
+    
+    
+  },[])
+  
+ 
   return (
     <div className='header'>
       <NavLink to="/" className={((isActive)=>isActive ?"active-link-header":"")}>
@@ -17,17 +29,16 @@ export default function Header() {
       </NavLink>
       <div className='header-right-side'>
         <div className='header-user-icon'>
-          <NavLink to="/" className={(isActive)=>isActive ?"active-link-header":""} >
+          <NavLink to="favorites" className={(isActive)=>isActive ?"active-link-header":""} >
             <img src={Heart} alt='Heart-icon'/>
           </NavLink>
-          <NavLink to="/" className={(isActive)=>isActive ?"active-link-header":""}>
+          <NavLink to="cart" className={(isActive)=>isActive ?"active-link-header":""}>
             <img src={Basket} alt='Basket-icon' className='basket-button'/>
           </NavLink>
         </div>
-        
         <div className='auth-header-active'>
-          {isAuth?<AuthActive/>:<AuthNotActive/>}
-          {/* <Outlet/> */}
+          {isAuth ? <AuthActive setIsAuth={setIsAuth} /> : <AuthNotActive/>}
+          
         </div>
       </div>
 
