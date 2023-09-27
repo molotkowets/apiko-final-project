@@ -8,7 +8,7 @@ export default function AuthActive({ setIsAuth }){
   const name = JSON.parse(localStorage.getItem("onAuth"))?.account?.fullName
   const[showBoard, setShowBoard] = useState(false)
 
-console.log(showBoard)
+// console.log(showBoard)
 
   return (
     <div className='auth-active-container'>

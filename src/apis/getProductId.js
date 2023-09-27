@@ -1,11 +1,10 @@
 import axios from "axios";
 
-// const requestURL = "https://demo-api.apiko.academy/api/categories/3/products"
-
-export function getProductId(url, parameters, setProduct){
+export function getProductId(url, parameters, token, setProduct){
     axios.get(url, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            ...token
         },
         params: {
             ...parameters

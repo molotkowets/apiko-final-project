@@ -6,7 +6,7 @@ export function postAddProductToFavorites(url, token, setProduct){
             Authorization: `Bearer ${token}`
           },
     }).then(response=>{
-        // setProduct(response.data)
+        setProduct(response.data)
         console.log(response)
     }).catch(err=>console.log(err))
 }

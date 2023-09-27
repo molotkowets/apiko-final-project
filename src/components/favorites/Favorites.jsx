@@ -3,30 +3,39 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '../product-card/ProductCard'
 import './favorites.css'
 import { getFavorites } from '../../apis/getFavorites'
+import { deleteRemoveProductFromFavorites } from '../../apis/deleteRemoveProductFromFavorites'
+import { headerToken, token, urlFavorite, urlFavoriteId } from '../../constants/urls'
 
 
 export default function Favorites() {
-  const [product, setProduct] = useState('')
+  const [products, setProducts] = useState('')
   
   useEffect(()=>{
-    gatFavorite()
+    gatFavorite(0, 20)
   },[])
-const gatFavorite = () =>{
-  const token = JSON.parse(localStorage.getItem('onAuth')).token
-  console.log(token)
+const gatFavorite = (off, lim) =>{
   const params = {
-    offset: 0,
-    limit: 20,
+    offset: off,
+    limit: lim,
   }
-  
-  const headerToken = {Authorization: `Bearer ${token}`}
-  const urlFavorite = 'https://demo-api.apiko.academy/api/products/favorites'
-  getFavorites(urlFavorite, params,headerToken,setProduct)
+
+  getFavorites(urlFavorite, params, headerToken(token), setProducts)
+}
+
+const removeProduct = (id)=>{
+  // const response = (e)=>{
+    // if(e.success){
+      let mod = products.filter((prod) => prod.id !== id)
+      setProducts(mod)
+    // }
+  // }
+ 
+  // deleteRemoveProductFromFavorites(urlFavoriteId(id), token, response)
 }
 
   return (
     <div className='favorites-wrap-product'>
-      { product? product.map((product, index)=><ProductCard funcRest={gatFavorite} key={index} product={product}/>):"Loading"}
+      { products? products.map((product, index)=><ProductCard key={index} product={product} handlerFav={removeProduct}/>):"Loading"}
     </div>
   )
 }

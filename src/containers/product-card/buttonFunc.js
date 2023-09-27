@@ -12,18 +12,22 @@
 //         // console.log(localStorage.getItem('favorite')) 
 //       }
 
-import { postAddProductToFavorites } from "../../apis/postAddProducToFavorites"
+import { deleteRemoveProductFromFavorites } from "../../apis/deleteRemoveProductFromFavorites"
+import { postAddProductToFavorites } from "../../apis/postAddProductToFavorites"
+import { token, urlFavoriteId } from "../../constants/urls"
 
       
 //     }
 //   }
-  export const addToFavorite = (id)=>{
-    const url = "https://demo-api.apiko.academy/api/products/"+id+"/favorite"
-    const token = JSON.parse(localStorage.getItem("onAuth")).token
-    
-    console.log(token)
-    postAddProductToFavorites(url,token)
+const checkResponse = (favStatus, setFavStatus) => response => {
+  if(response?.success){
+    setFavStatus(!favStatus)
   }
+}
+  export const addOrDelFavorite = (id, favStatus, setFavStatus)=>{
+    favStatus? deleteRemoveProductFromFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus)) :postAddProductToFavorites(urlFavoriteId(id),token, checkResponse(favStatus, setFavStatus))
+  }
+ 
   export const addToCart = ()=>{
     
   }

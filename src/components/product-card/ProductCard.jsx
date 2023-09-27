@@ -1,35 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './product-card.css'
 import {ReactComponent as FavoriteFalse} from '../../assets/icons/favourite-card-false.svg'
 import{ReactComponent as FavoriteTrue} from '../../assets/icons/favourite-card-true.svg'
 import { NavLink } from 'react-router-dom'
-import { deleteRemoveProductFromFavorites } from '../../apis/deleteRemoveProductFromFavorites'
-import { addToFavorite } from '../../containers/product-card/buttonFunc'
-import { postAddProductToFavorites } from '../../apis/postAddProducToFavorites'
-export default function ProductCard({product, funcRest}) {
+// import { deleteRemoveProductFromFavorites } from '../../apis/deleteRemoveProductFromFavorites'
+import { addOrDelFavorite } from '../../containers/product-card/buttonFunc'
+// import { postAddProductToFavorites } from '../../apis/postAddProductToFavorites'
+export default function ProductCard({product, handlerFav}) {
   const [statusResponse, setStatusResponse] = useState("")
   const [statusFav, setStatusFav] = useState(product.favorite)
-  
- const favoriteHandler = (id)=>{
-  const url = "https://demo-api.apiko.academy/api/products/"+id+"/favorite"
-  const token = JSON.parse(localStorage.getItem("onAuth")).token
-
-  if(statusFav){
-    console.log("delete")
-    deleteRemoveProductFromFavorites(url, token, setStatusResponse)
-    setStatusFav(!statusFav)
-    funcRest()
-  }else{
-    console.log("add")
-    postAddProductToFavorites(url, token, setStatusResponse)
-    setStatusFav(!statusFav)
-  }
-  console.log(statusResponse)
+ if(!statusFav){
+  handlerFav(product.id)
  }
+  // console.log(statusFav)
+useEffect(()=>{
+  statusResponse && statusResponse?.success && setStatusFav(!statusFav)
+},[statusResponse])
+
 
   return (
     <div className='wrapper-product-cart-container'>
-      <NavLink className={"wrap-product-card"} to={'product/'+ product.id}>
+      <NavLink className={"wrap-product-card"} to={'/product/'+ product.id}>
         <div className='product-card border-radius-card'>
           <div className='product-img-container'>
             <img className="product-picture border-radius-card" src={product.picture} alt=''/>
@@ -42,8 +33,10 @@ export default function ProductCard({product, funcRest}) {
           
         </div>
       </NavLink>
-      <div onClick={()=>favoriteHandler(product.id)} className='product-favorite'>
+      {/* <div onClick={()=>handlerFav(product.id, statusFav, setStatusResponse)} className='product-favorite'> */}
+      <div onClick={()=>addOrDelFavorite(product.id, statusFav, setStatusFav)} className='product-favorite'>
               {!statusFav?<FavoriteFalse/>:<FavoriteTrue/>}
+              {/* {favoriteIcon} */}
             </div>
     </div>
   )

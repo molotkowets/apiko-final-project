@@ -1,9 +1,6 @@
-
 import axios from "axios";
 
-
 export function getFavorites(url, parameters, token, setProduct){
-    console.log(token)
     axios.get(url, {
         headers: {
             'Content-Type': 'application/json',

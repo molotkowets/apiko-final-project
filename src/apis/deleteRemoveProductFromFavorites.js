@@ -6,7 +6,7 @@ export function deleteRemoveProductFromFavorites(url, token, setProduct){
             Authorization: `Bearer ${token}`
           },
     }).then(response=>{
-        setProduct(response)
+        setProduct(response.data)
         console.log(response)
     }).catch(err=>console.log(err))
 }
