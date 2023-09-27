@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-// import { getProductIds } from '../../apis/getProductIds'
 import ProductCard from '../product-card/ProductCard'
 import './favorites.css'
-import { getFavorites } from '../../apis/getFavorites'
-import { deleteRemoveProductFromFavorites } from '../../apis/deleteRemoveProductFromFavorites'
-import { headerToken, token, urlFavorite, urlFavoriteId } from '../../constants/urls'
+import { headerToken, token, urlFavorite } from '../../constants/urls'
+import { getRequest } from '../../apis/getRequest'
 
 
 export default function Favorites() {
@@ -13,24 +11,20 @@ export default function Favorites() {
   useEffect(()=>{
     gatFavorite(0, 20)
   },[])
+
 const gatFavorite = (off, lim) =>{
   const params = {
     offset: off,
     limit: lim,
   }
-
-  getFavorites(urlFavorite, params, headerToken(token), setProducts)
+  getRequest(urlFavorite, params, headerToken(token), setProducts)
 }
 
 const removeProduct = (id)=>{
-  // const response = (e)=>{
-    // if(e.success){
-      let mod = products.filter((prod) => prod.id !== id)
-      setProducts(mod)
-    // }
-  // }
- 
-  // deleteRemoveProductFromFavorites(urlFavoriteId(id), token, response)
+  // console.log(products)
+  let mod = products.filter((prod) => prod.id !== id)
+  setProducts(mod)   
+  // console.log(mod)
 }
 
   return (

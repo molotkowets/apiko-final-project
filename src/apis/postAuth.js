@@ -16,23 +16,6 @@ import axios from "axios";
         console.log(err)
         // setResp(err)
     })
-    console.log("bracked")
+    console.log("break")
 }
 
-
-// export function Register(){
-//     console.log("register")
-//     axios.post('https://demo-api.apiko.academy/api/auth/register',{
-        
-//         "fullName": "molotkowets",
-//         "email": "molotkowets@gmail.cpm",
-//         "password": "admin",
-//         "phone": "0501234567"
-//     })
-//     .then((response)=>{
-//         console.log(response)
-//     })
-//     .then((err)=>{
-//         console.log(err)
-//     })
-// }

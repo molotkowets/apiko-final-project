@@ -3,24 +3,24 @@ import "./header.css"
 import { NavLink } from 'react-router-dom'
 import Logo from "../../assets/icons/Logofull.svg"
 import Heart from "../../assets/icons/Favorites.svg"
+import HeartTrue from "../../assets/icons/favorite-card-true.svg"
 import Basket from "../../assets/icons/icon_ basket.svg"
 import AuthActive from '../header-auth-active/AuthActive'
 import AuthNotActive from '../header-auth-active/AuthNotActive'
+import { token } from '../../constants/urls'
 
 
 export default function Header() {
-  const [isAuth, setIsAuth] = useState("")
-  useEffect(()=>{
-    try{
-      setIsAuth(JSON.parse(localStorage.getItem("onAuth"))?.token)
-    }
-    catch{
-      console.log("onAuth")
-    }
-    
-    
-  },[])
-  
+  const [isAuth, setIsAuth] = useState(token)
+  // useEffect(()=>{
+  //   try{
+  //     setIsAuth(token)
+  //   }
+  //   catch{
+  //     console.log("onAuth")
+  //   }
+  // },[])
+  const favFalse = false
  
   return (
     <div className='header'>
@@ -30,7 +30,9 @@ export default function Header() {
       <div className='header-right-side'>
         <div className='header-user-icon'>
           <NavLink to="favorites" className={(isActive)=>isActive ?"active-link-header":""} >
-            <img src={Heart} alt='Heart-icon'/>
+            {favFalse?<img src={HeartTrue} alt='Heart-icon'/>:<img src={Heart} alt='Heart-icon'/>}
+            {/* <img src={Heart} alt='Heart-icon'/> */}
+            {/* <img src={HeartTrue} alt='Heart-icon'/> */}
           </NavLink>
           <NavLink to="cart" className={(isActive)=>isActive ?"active-link-header":""}>
             <img src={Basket} alt='Basket-icon' className='basket-button'/>

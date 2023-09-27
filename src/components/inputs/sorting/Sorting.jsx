@@ -13,7 +13,7 @@ export default function Sorting({sortList, setParameterGoods, parameterGoods}) {
         </div>        
         <input onChange={(e)=>setParameterGoods({...parameterGoods, sortBy:e.target.value})} className='input-search' type="text" list="sort" placeholder="Sorting"/>
         <datalist  id="sort">
-          {sortList.map((by, index)=><option id={index} value={by}/>)}
+          {sortList.map((by, index)=><option key={index} id={index} value={by}/>)}
         </datalist>
         <div className='search-button'>
             <ArrowOpenIcon/>

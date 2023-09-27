@@ -20,12 +20,14 @@ import { token, urlFavoriteId } from "../../constants/urls"
 //     }
 //   }
 const checkResponse = (favStatus, setFavStatus) => response => {
+  console.log("wheat switch")
   if(response?.success){
     setFavStatus(!favStatus)
+    console.log("switch")
   }
 }
   export const addOrDelFavorite = (id, favStatus, setFavStatus)=>{
-    favStatus? deleteRemoveProductFromFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus)) :postAddProductToFavorites(urlFavoriteId(id),token, checkResponse(favStatus, setFavStatus))
+    favStatus? deleteRemoveProductFromFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus)) :postAddProductToFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus))
   }
  
   export const addToCart = ()=>{

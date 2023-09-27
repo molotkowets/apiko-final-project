@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './product.css'
-import { getProductId } from '../../apis/getProductId'
+// import { getProductId } from '../../apis/getProductId'
 import { useParams } from 'react-router-dom'
 import { addToCart, addOrDelFavorite, buyNow, calculation } from './buttonFunc'
 import { urlProducts } from '../../constants/urls'
+import { getRequest } from '../../apis/getRequest'
 
 
 export default function Product() {
@@ -19,7 +20,7 @@ export default function Product() {
     if(id){
       const url = urlProducts + id    
       const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth')).token}`}
-      getProductId(url, id, token, setProduct)
+      getRequest(url, id, token, setProduct)
     }
   },[id])
   useEffect(()=>{

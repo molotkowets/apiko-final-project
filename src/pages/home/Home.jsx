@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import "./home.css"
-// import { cardItemsSelector, removeFromCard } from '../../store'
-// import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../apis/getProducts'
+// import { getProducts } from '../../apis/getProducts'
 import ProductParameter from '../../components/product-parameter/ProductParameter'
 import ProductCard from '../../components/product-card/ProductCard'
 import Loading from '../../components/loading/Loading'
 import NoResultsFound from '../../containers/NoResultsFound/NoResultsFound'
-// import { handlerFavHome } from '../../services/handler-favorites-home'
+import { getRequest } from '../../apis/getRequest'
 
 export default function Home() {
   const [products, setProducts] = useState("")
   const [parameterGoods, setParameterGoods] = useState({offset: 0, limit: 20, sortBy: "latest"})
   const [categories, setCategories] = useState('')
   const [searchVal, setSearchVal] = useState('')
-  // console.log(products)
   useEffect(() => {
     let categoriesURL= "https://demo-api.apiko.academy/api/categories/"
      
     if(categories){
       const requestURLCategories = categoriesURL + categories.id + "/products"
-      getProducts( requestURLCategories, parameterGoods, setProducts)
+      getRequest( requestURLCategories, parameterGoods, setProducts)
     }
    
   },[categories, parameterGoods])
@@ -29,7 +26,7 @@ export default function Home() {
     const requestURLProducts = "https://demo-api.apiko.academy/api/products" + (searchVal && "/search")
     const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth')).token}`}
       console.log(requestURLProducts )
-      getProducts( requestURLProducts, {...parameterGoods, keywords: searchVal}, token, setProducts)
+      getRequest( requestURLProducts, {...parameterGoods, keywords: searchVal}, token, setProducts)
       setCategories("")
   },[parameterGoods, searchVal])
 
