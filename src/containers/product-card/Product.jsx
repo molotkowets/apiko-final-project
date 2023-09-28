@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './product.css'
 import { useParams } from 'react-router-dom'
 import { addToCart, addOrDelFavorite, buyNow, calculation } from './buttonFunc'
-import { urlProducts } from '../../constants/urls'
+import { headerToken, token, urlProducts } from '../../constants/urls'
 import { getRequest } from '../../apis/getRequest'
 
 
@@ -17,8 +17,7 @@ export default function Product() {
   useEffect(()=>{
     if(id){
       const url = urlProducts + id    
-      const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth')).token}`}
-      getRequest(url, id, token, setProduct)
+      getRequest(url, id, headerToken(token), setProduct)
     }
   },[id])
   useEffect(()=>{
