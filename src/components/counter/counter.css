@@ -1,0 +1,21 @@
+
+.input-num-counter::-webkit-outer-spin-button,
+.input-num-counter::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.counter{
+    display: flex;
+    align-items: center;
+}
+.input-num-counter{
+    width: 8px;
+    outline: none;
+    border: none;
+    padding: 0px 10px;
+}
+
+.counter-operator{
+    cursor: pointer;
+}

@@ -6,10 +6,11 @@ export function getRequest(url, parameters, token, setProduct){
             'Content-Type': 'application/json',
             ...token
         },
-        params: parameters
-        
+        params: {
+            ...parameters
+        }
     }).then(response=>{
         setProduct(response.data)
-        console.log(response.data)
+        // console.log(response)
     }).catch(err=>console.log(err))
 }

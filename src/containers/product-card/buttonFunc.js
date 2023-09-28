@@ -14,7 +14,7 @@
 
 import { deleteRemoveProductFromFavorites } from "../../apis/deleteRemoveProductFromFavorites"
 import { postAddProductToFavorites } from "../../apis/postAddProductToFavorites"
-import { token, urlFavoriteId } from "../../constants/urls"
+import { getStorage, token, urlFavoriteId } from "../../constants/urls"
 
       
 //     }
@@ -31,12 +31,12 @@ const checkResponse = (favStatus, setFavStatus) => response => {
   }
  
   export const addToCart = (id)=>{
-    const storage = JSON.parse(localStorage.getItem('cart'))
-    console.log(storage)
+    const storage = getStorage("cart")
+    // console.log(storage)
     let list = []
     if(storage){
       list = storage 
-      !storage.includes(id)? list.push(id) : console.log("вже є в кошику")
+      !storage.includes(id)? list.push(id) : list = storage.filter((item) => item !== id)
       
     }else{
       list = [id]
@@ -45,6 +45,7 @@ const checkResponse = (favStatus, setFavStatus) => response => {
     
     localStorage.setItem('cart', JSON.stringify(list));
   }
+
   export const buyNow = ()=>{
 
   }
