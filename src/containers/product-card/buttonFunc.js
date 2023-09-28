@@ -30,8 +30,20 @@ const checkResponse = (favStatus, setFavStatus) => response => {
     favStatus? deleteRemoveProductFromFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus)) :postAddProductToFavorites(urlFavoriteId(id), token, checkResponse(favStatus, setFavStatus))
   }
  
-  export const addToCart = ()=>{
+  export const addToCart = (id)=>{
+    const storage = JSON.parse(localStorage.getItem('cart'))
+    console.log(storage)
+    let list = []
+    if(storage){
+      list = storage 
+      !storage.includes(id)? list.push(id) : console.log("вже є в кошику")
+      
+    }else{
+      list = [id]
+    }
+    console.log(list)
     
+    localStorage.setItem('cart', JSON.stringify(list));
   }
   export const buyNow = ()=>{
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './product-card.css'
 import {ReactComponent as FavoriteFalse} from '../../assets/icons/favorite-card-false.svg'
-import{ReactComponent as FavoriteTrue} from '../../assets/icons/favorite-card-true.svg'
+import {ReactComponent as FavoriteTrue} from '../../assets/icons/favorite-card-true.svg'
 import { NavLink } from 'react-router-dom'
 import { addOrDelFavorite } from '../../containers/product-card/buttonFunc'
 export default function ProductCard({product, handlerFav}) {

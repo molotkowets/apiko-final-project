@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './product.css'
-// import { getProductId } from '../../apis/getProductId'
 import { useParams } from 'react-router-dom'
 import { addToCart, addOrDelFavorite, buyNow, calculation } from './buttonFunc'
 import { urlProducts } from '../../constants/urls'
@@ -12,7 +11,6 @@ export default function Product() {
   const [quantity, setQuantity] = useState(1)
   const [product, setProduct] = useState()
   const [favButton, setFavButton] = useState({title:"ADD TO FAVORITES", class:"btn-fav-active"})
-  // const [statusResponse, setStatusResponse] = useState('')
   const [favStatus, setFavStatus] = useState(product?.favorite)
 
   
@@ -27,10 +25,8 @@ export default function Product() {
     setFavStatus(product?.favorite)
   },[product])
   
-  // console.log(favStatus,product?.favorite)
   useEffect(()=>{
     setFavButton(favStatus ?{title:"ADDED TO FAVORITES", class:"btn-fav-active"}:{title:"ADD TO FAVORITES", class:""})
-  // statusResponse && statusResponse?.success && setStatusFav(!statusFav)
   },[favStatus, product?.favorite])
   
   return (
@@ -56,12 +52,11 @@ export default function Product() {
           </div>
           <div className='product-buttons'>
             <div>
-              <button onClick={()=>addToCart} className='border-button-add'>ADD TO CART</button>
+              <button onClick={()=>addToCart(id)} className='border-button-add'>ADD TO CART</button>
               <button onClick={()=>addOrDelFavorite(id, favStatus, setFavStatus)} className={'border-button-add product-add-to-fav-button ' + favButton.class }>{favButton.title}</button>
             </div>
               <button onClick={()=>buyNow} className='product-button-background'>Buy now</button>
             </div>
-          
         </div>
       </div>}
   </>
