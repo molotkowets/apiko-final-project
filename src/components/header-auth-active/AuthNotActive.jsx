@@ -7,11 +7,11 @@ export default function AuthNotActive() {
 
   return (
     <div className='auth-active-container'>
-      <NavLink  className={"header-button-auth"} to="registration" state={{background: location}}> 
+      <NavLink  className={"header-button-auth"} to="/auth/registration" state={{background: location}}> 
             REGISTER
       </NavLink>
       <div className='separate-rectangle'></div>
-        <NavLink className={"header-button-auth"} to="login" state={{background: location}}>
+        <NavLink className={"header-button-auth"} to="/auth/login" state={{background: location}}>
             LOG IN
         </NavLink>
         

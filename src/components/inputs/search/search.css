@@ -1,0 +1,14 @@
+.input-search{
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin: 0 8px;
+
+}
+.search-button{
+    display: flex;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
