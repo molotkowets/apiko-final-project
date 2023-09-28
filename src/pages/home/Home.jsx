@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(()=>{
     const requestURLProducts = "https://demo-api.apiko.academy/api/products" + (searchVal && "/search")
-    const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth')).token}`}
+    const token = {Authorization: `Bearer ${JSON.parse(localStorage.getItem('onAuth'))?.token}`}
       console.log(requestURLProducts )
       getRequest( requestURLProducts, {...parameterGoods, keywords: searchVal}, token, setProducts)
       setCategories("")

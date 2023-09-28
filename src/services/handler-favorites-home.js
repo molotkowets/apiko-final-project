@@ -3,7 +3,7 @@ import { postAddProductToFavorites } from "../apis/postAddProductToFavorites"
 
 export const handlerFavHome = (id, statusFav, statusResponse)=>{
     const url = "https://demo-api.apiko.academy/api/products/"+id+"/favorite"
-    const token = JSON.parse(localStorage.getItem("onAuth")).token
+    const token = JSON.parse(localStorage.getItem("onAuth"))?.token
   
     if(statusFav){
       console.log("delete")
